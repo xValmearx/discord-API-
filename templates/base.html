@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>
+        {% block title %}
+        App Name Here
+        {% endblock title %}
+    </title>
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<header>
+    <nav>
+
+        <a href="{% url 'home' %}">Home</a>
+
+        {% if user.is_authenticated %}
+
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Log Out</button>
+            </form>
+
+        {% else %}
+
+            <a href="{% url 'login' %}">Log In</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
+
+        {% endif %}
+
+    </nav>
+</header>
+
+<main>
+
+    {% block content %}
+    Stuff Goes Here
+    {% endblock content %}
+
+</main>
+
+</body>
+</html>
