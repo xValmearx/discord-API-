@@ -1,8 +1,9 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+/* Global Styles */
+
+html {
+    scroll-behavior: smooth;
 }
 
-nav a {
-    margin-right: 10px;
+body {
+    font-family: 'Space Grotesk', sans-serif;
 }

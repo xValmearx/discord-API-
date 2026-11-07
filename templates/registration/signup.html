@@ -6,16 +6,89 @@
 
 {% block content %}
 
-    <h2>Sign Up</h2>
+<section class="min-h-[80vh] flex items-center justify-center px-6 py-12">
 
-    <form method="POST">
+    <div class="card bg-base-100 shadow-2xl w-full max-w-md">
 
-        {% csrf_token %}
+        <div class="card-body p-8">
 
-        {{ form.as_p }}
+            <!-- Heading -->
+            <div class="text-center mb-6">
 
-        <button type="submit">Sign Up</button>
+                <h1 class="text-3xl font-bold mb-2">
+                    Create an Account
+                </h1>
 
-    </form>
+                <p class="text-base-content/60">
+                    Join us and get started today.
+                </p>
+
+            </div>
+
+            <!-- Signup Form -->
+            <form method="POST" class="space-y-4">
+
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-error">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                {% for field in form %}
+
+                    <div class="form-control">
+
+                        <label class="label">
+                            <span class="label-text font-semibold">
+                                {{ field.label }}
+                            </span>
+                        </label>
+
+                        {{ field }}
+
+                        {% if field.help_text %}
+                            <label class="label">
+                                <span class="label-text-alt text-base-content/50">
+                                    {{ field.help_text|safe }}
+                                </span>
+                            </label>
+                        {% endif %}
+
+                        {% if field.errors %}
+                            <label class="label">
+                                <span class="label-text-alt text-error">
+                                    {{ field.errors }}
+                                </span>
+                            </label>
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+                <button type="submit" class="btn btn-primary w-full mt-4">
+                    Create Account
+                </button>
+
+            </form>
+
+            <!-- Login Link -->
+            <div class="divider">OR</div>
+
+            <p class="text-center text-sm text-base-content/70">
+                Already have an account?
+
+                <a href="{% url 'login' %}" class="link link-primary font-semibold">
+                    Log In
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
 
 {% endblock content %}
