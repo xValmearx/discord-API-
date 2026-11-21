@@ -13,4 +13,7 @@ urlpatterns = [
 
     # Django authentication
     path("accounts/", include("django.contrib.auth.urls")),
+
+    # Django annoncements
+    path("announcements/", include("announcement.urls")),
 ]

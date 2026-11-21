@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # installed apps
     "pages.apps.PagesConfig",
     "accounts.apps.AccountsConfig",
+    "announcement.apps.AnnouncementConfig",
 ]
 
 MIDDLEWARE = [

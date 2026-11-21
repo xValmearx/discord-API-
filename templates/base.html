@@ -1,53 +1,98 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>
         {% block title %}
-        App Name Here
+            App Name Here
         {% endblock title %}
     </title>
 
-    {% load static %}
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- daisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
-<body>
+<body class="min-h-screen bg-base-300 text-base-content">
 
-<header>
-    <nav>
+    <!-- Navbar -->
+    <header class="navbar bg-base-100 shadow-lg px-4 md:px-8">
 
-        <a href="{% url 'home' %}">Home</a>
+        <div class="navbar-start">
+            <a href="{% url 'home' %}"
+               class="text-xl font-bold tracking-wide text-primary">
+                My Website
+            </a>
+        </div>
 
-        {% if user.is_authenticated %}
+        <div class="navbar-end gap-2">
 
-            <form action="{% url 'logout' %}" method="post" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit">Log Out</button>
-            </form>
+            <a href="{% url 'home' %}"
+               class="btn btn-ghost btn-sm">
+                Home
+            </a>
 
-        {% else %}
+            {% if user.is_authenticated %}
 
-            <a href="{% url 'login' %}">Log In</a>
-            <a href="{% url 'signup' %}">Sign Up</a>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-error btn-sm">
+                        Log Out
+                    </button>
+                </form>
 
-        {% endif %}
+            {% else %}
 
-    </nav>
-</header>
+                <a href="{% url 'login' %}"
+                   class="btn btn-ghost btn-sm">
+                    Log In
+                </a>
 
-<main>
+                <a href="{% url 'signup' %}"
+                   class="btn btn-primary btn-sm">
+                    Sign Up
+                </a>
 
-    {% block content %}
-    Stuff Goes Here
-    {% endblock content %}
+            {% endif %}
 
-</main>
+        </div>
 
+    </header>
+
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 md:py-12">
+
+        <div class="mx-auto w-full max-w-5xl">
+
+            {% block content %}
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <h1 class="card-title text-2xl">
+                            Welcome!
+                        </h1>
+
+                        <p class="text-base-content/70">
+                            Stuff Goes Here
+                        </p>
+                    </div>
+                </div>
+            {% endblock content %}
+
+        </div>
+
+    </main>
+
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </body>
 </html>

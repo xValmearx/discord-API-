@@ -1,0 +1,27 @@
+
+<form
+    hx-post="{% url 'create_announcement' %}"
+    hx-target="#announcement-list"
+    hx-swap="innerHTML"
+    hx-indicator="#loading"
+>
+
+    {% csrf_token %}
+
+    <h2 class="text-xl font-bold mb-4">
+        Create Announcement
+    </h2>
+
+    <div class="form-control">
+        {{ form.text }}
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-4">
+        Create Announcement
+    </button>
+
+    <span id="loading" class="htmx-indicator">
+        Saving announcement...
+    </span>
+
+</form>

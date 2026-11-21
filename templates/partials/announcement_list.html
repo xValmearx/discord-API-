@@ -1,0 +1,24 @@
+
+{% for announcement in announcements %}
+
+    <div class="card bg-base-100 shadow-lg mb-4">
+        <div class="card-body">
+
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold">
+                    {{ announcement.author.username }}
+                </h3>
+            </div>
+
+            <p class="text-base-content/80">
+                {{ announcement.text }}
+            </p>
+
+        </div>
+    </div>
+
+{% empty %}
+
+    <p>You do not have any announcements yet.</p>
+
+{% endfor %}

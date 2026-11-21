@@ -1,7 +1,7 @@
+
 {% extends "base.html" %}
 
 {% load static %}
-
 
 {% block title %}
     Home
@@ -9,8 +9,55 @@
 
 {% block content %}
 
-    <h1>Home Page</h1>
+    {% if user.is_authenticated %}
 
-    <p>Welcome to the website.</p>
+
+
+        <button
+            class="btn btn-primary"
+            onclick="document.getElementById('announcement-modal').showModal()"
+            hx-get="{% url 'create_announcement' %}"
+            hx-target="#announcement-modal-content"
+            hx-swap="innerHTML"
+        >+ Create Announcement</button>
+
+
+
+        <dialog id="announcement-modal" class="modal">
+
+            <div class="modal-box">
+
+                <div id="announcement-modal-content">
+                    {% include "partials/announcement_form.html" %}
+                </div>
+
+            </div>
+
+            <form method="dialog" class="modal-backdrop">
+                <button>Close</button>
+            </form>
+
+        </dialog>
+
+
+        <div id="announcement-list"></div>
+            {% if user.announcements.exists %}
+                {% include "partials/announcement_list.html" %}
+
+            {% else %}
+                <p>You do not have any announcements</p>
+            {% endif %}
+        </div>
+
+    {% endif %}
+
+    <script>
+        document.body.addEventListener("announcementCreated", function () {
+            document.getElementById("announcement-modal").close();
+        });
+    </script>
 
 {% endblock content %}
+
+
+
