@@ -1,13 +1,35 @@
 
 {% for announcement in announcements %}
 
-    <div class="card bg-base-100 shadow-lg mb-4">
+    <div class="announcement-card card bg-base-100 shadow-lg mb-4">
         <div class="card-body">
 
             <div class="flex justify-between items-center">
+
                 <h3 class="font-bold">
                     {{ announcement.author.username }}
                 </h3>
+
+                {% if announcement.author == request.user %}
+
+                    <form
+                        hx-post="{% url 'delete_announcement' announcement.pk %}"
+                        hx-target="closest .announcement-card"
+                        hx-swap="outerHTML"
+                    >
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="btn btn-error btn-sm"
+                        >
+                            Delete
+                        </button>
+
+                    </form>
+
+                {% endif %}
+
             </div>
 
             <p class="text-base-content/80">
